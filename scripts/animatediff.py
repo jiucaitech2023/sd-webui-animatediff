@@ -129,5 +129,5 @@ class AnimateDiffScript(scripts.Script):
                 video_path = f"{p.outpath_samples}/AnimateDiff/{filename}.gif"
                 video_paths.append(video_path)
                 imageio.mimsave(video_path, video_list, duration=(video_length/fps), loop=loop_number)
-            res.images = video_paths
+            # res.images = video_paths
             self.logger.info("AnimateDiff process end.")
