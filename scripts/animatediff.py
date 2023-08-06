@@ -33,7 +33,7 @@ class AnimateDiffScript(scripts.Script):
         self.logger = logger_animatediff
 
     def title(self):
-        return "AnimateDiff"
+        return "AnimateDiff-v1.1.0"
     
     def show(self, is_img2img):
         return scripts.AlwaysVisible
