@@ -118,16 +118,17 @@ class AnimateDiffScript(scripts.Script):
     def postprocess(self, p: StableDiffusionProcessing, res: Processed, enable_animatediff=False, loop_number=0, video_length=16, fps=8, model="mm_sd_v15.ckpt"):
         if enable_animatediff:
             self.remove_motion_modules(p)
-            # video_paths = []
-            # self.logger.info("Merging images into GIF.")
-            # from pathlib import Path
-            # Path(f"{p.outpath_samples}/AnimateDiff").mkdir(exist_ok=True)
-            # for i in range(res.index_of_first_image, len(res.images), video_length):
-            #     video_list = res.images[i:i+video_length]
-            #     seq = images.get_next_sequence_number(f"{p.outpath_samples}/AnimateDiff", "")
-            #     filename = f"{seq:05}-{res.seed}"
-            #     video_path = f"{p.outpath_samples}/AnimateDiff/{filename}.gif"
-            #     video_paths.append(video_path)
-            #     imageio.mimsave(video_path, video_list, duration=(video_length/fps), loop=loop_number)
-            # res.images = video_paths
-            # self.logger.info("AnimateDiff process end.")
+            res_images = []
+            self.logger.info("Merging images into GIF.")
+            from pathlib import Path
+            Path(f"{p.outpath_samples}/AnimateDiff").mkdir(exist_ok=True)
+            for i in range(res.index_of_first_image, len(res.images), video_length):
+                video_list = res.images[i:i + video_length]
+                seq = images.get_next_sequence_number(f"{p.outpath_samples}/AnimateDiff", "")
+                filename = f"{seq:05}-{res.seed}"
+                video_path = f"{p.outpath_samples}/AnimateDiff/{filename}.gif"
+                res_images.append(video_path)
+                res_images = res_images + video_list
+                imageio.mimsave(video_path, video_list, duration=(1 / fps), loop=loop_number)
+            res.images = res_images
+            self.logger.info("AnimateDiff process end.")
