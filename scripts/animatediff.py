@@ -53,7 +53,7 @@ class AnimateDiffScript(scripts.Script):
         gc.collect()
     
     def ui(self, is_img2img):
-        with gr.Accordion('AnimateDiff', open=False):
+        with gr.Accordion('AnimateDiff-v1.1.0', open=False):
             model = gr.Dropdown(choices=["mm_sd_v15.ckpt", "mm_sd_v14.ckpt"], value="mm_sd_v15.ckpt", label="Motion module", type="value")
             with gr.Row():
                 enable = gr.Checkbox(value=False, label='Enable AnimateDiff')
