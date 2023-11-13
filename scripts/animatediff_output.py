@@ -19,6 +19,8 @@ class AnimateDiffOutput:
 
 
     def output(self, p: StableDiffusionProcessing, res: Processed, params: AnimateDiffProcess):
+        if params.format and len(params.format) == 1 and params.format[0] == "PNG":
+            return
         video_paths = []
         logger.info("Merging images into GIF.")
         date = datetime.datetime.now().strftime('%Y-%m-%d')
